@@ -15,14 +15,11 @@
                 socket.emit('update_count');
 
                 socket.on('updated_count', function (data) {
-                  //console.log(data.response);
                   $('#display').html("The button has been pushed: " + JSON.stringify(data.response) + " time(s)");
                 });
 
                 return false;
-
             });
-
 
             $('#reset').submit(function() {
                 socket.emit('reset_count');
@@ -31,19 +28,46 @@
         });
     </script>
     <style>
-    form {
-      margin: 20px;
+    #wrapper {
+      width: 60%;
+      margin-left: 10%;
+      margin-right: 30%;
+      border: 2px solid blue;
     }
-    form input, select:{
-      padding: 10px;
-      margin-bottom:15px;
+    #epic_form{
+      margin-left: 35%;
+      margin-right: 35%;
     }
-
+     #epic_form input {
+      width: 250px;
+      height: 100px;
+      background-color: blue;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 1.3em;
+    }
+    #reset{
+      margin-left: 60%;
+    }
+    #reset input{
+      width: 100px;
+      height: 50px;
+      background-color: red;
+      color: #fff;
+      border-radius: 10px;
+    }
+    #display {
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 30px;
+      margin-top: 20px;
+    }
     </style>
 </head>
 
 <body>
 
+<div id="wrapper">
   <div id="display"></div>
 
 <form id="epic_form" action="">
@@ -53,5 +77,6 @@
 <form id="reset" action="">
   <input type='submit' value='Reset count'>
 </form>
+</div>
 </body>
 </html>
