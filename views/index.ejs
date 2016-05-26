@@ -1,0 +1,57 @@
+<html>
+<head>
+<title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+          // this triggers the connection event in our server!
+            var socket = io.connect('http://localhost:8000');
+            // we'll write all the socket stuff after the above line!
+
+            $('#epic_form').submit(function() {
+
+                socket.emit('update_count');
+
+                socket.on('updated_count', function (data) {
+                  //console.log(data.response);
+                  $('#display').html("The button has been pushed: " + JSON.stringify(data.response) + " time(s)");
+                });
+
+                return false;
+
+            });
+
+
+            $('#reset').submit(function() {
+                socket.emit('reset_count');
+                return false;
+            });
+        });
+    </script>
+    <style>
+    form {
+      margin: 20px;
+    }
+    form input, select:{
+      padding: 10px;
+      margin-bottom:15px;
+    }
+
+    </style>
+</head>
+
+<body>
+
+  <div id="display"></div>
+
+<form id="epic_form" action="">
+  <input type='submit' value='Push the epic button'>
+</form>
+
+<form id="reset" action="">
+  <input type='submit' value='Reset count'>
+</form>
+</body>
+</html>
